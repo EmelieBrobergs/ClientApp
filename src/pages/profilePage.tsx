@@ -1,16 +1,11 @@
 import { CSSProperties } from "react";
+import TabPanel from "../components/pProfile/TabPanel";
 
 const ProfilePage = () => {
   return (
-      <div style={{ ...root }}>
-        This is the Profile Page
-        {/* <TabPanel /> */}
-      </div>
+        <TabPanel />
   );
 };
 
 export default ProfilePage;
 
-const root: CSSProperties = {
-  margin: 20,
-};

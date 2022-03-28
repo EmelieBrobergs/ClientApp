@@ -2,7 +2,7 @@ import { Paper, Typography, useTheme } from "@mui/material";
 import { CSSProperties, useCallback, useState } from "react";
 import { Location, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import LoginForm from "../components/Login/LoginForm";
+import LoginForm from "../components/lLogin/LoginForm";
 import { userLoginAsync } from "../reduxSlices/userSlice";
 
 function LoginPage() {
@@ -10,7 +10,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const location: Location = useLocation();
   const state: any = location.state;
-  const from: string = state.from?.pathName || "/auth/styles";
+  const from: string = state.from?.pathName || "/mystyles";
   //TODO: #7 The location.state.from dosen't work, user always redirects to "/user/skg". See used example: https://reactrouter.com/docs/en/v6/examples/auth
   // const from = location.state?.from?.pathName || "/user/profile";
 
@@ -51,10 +51,10 @@ function LoginPage() {
 
   return (
     <div
-      style={{
-        ...root,
-        backgroundImage: `linear-gradient(to bottom, ${theme.palette.primary.main}, ${theme.palette.primary.contrastText}, ${theme.palette.primary.main})`,
-      }}
+    style={{
+      ...root,
+      backgroundImage: `linear-gradient(to bottom, ${theme.palette.primary.main}, ${theme.palette.primary.contrastText}, ${theme.palette.primary.main})`,
+    }}
     >
       <div style={{ ...layout }}>
         <div style={{ justifyContent: "center" }}>

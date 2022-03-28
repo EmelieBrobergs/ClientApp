@@ -74,7 +74,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit, loginError }) => {
                   error={touched.email && errors.email ? true : false}
                   id="input-user-name"
                   label="Username"
-                  sx={{ m: 1, width: { xs: "28ch", sm: "45ch" } }}
+                  sx={{ m: 1, width: { xs: "28ch", sm: "48ch" } }} //May need to edit the with id change of font type
                   size="small"
                   variant="outlined"
                 />

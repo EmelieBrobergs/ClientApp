@@ -4,16 +4,20 @@ import color from "./color";
 // Declare customStyle parameters
 declare module "@mui/material/styles" {
     interface Theme {
-      status: {
-        alarm: {
+      category: {
+        productType: {
           primary: string;
           secondary: string;
         }
-        warning: {
+      productGroupe: {
           primary: string;
           secondary: string;
         }
-        ok: {
+      tags: {
+          primary: string;
+          secondary: string;
+        }
+      user: {
           primary: string;
           secondary: string;
         }
@@ -21,16 +25,20 @@ declare module "@mui/material/styles" {
     }
     // allow configuration using `createTheme`
     interface ThemeOptions {
-      status?: {
-        alarm?: {
+      category?: {
+        productType?: {
           primary?: string;
           secondary?: string;
         }
-        warning?: {
+        productGroupe: {
           primary?: string;
           secondary?: string;
         }
-        ok?: {
+        tags?: {
+          primary?: string;
+          secondary?: string;
+        }
+        user?: {
           primary?: string;
           secondary?: string;
         }
@@ -63,9 +71,9 @@ declare module "@mui/material/styles" {
           main: color.Gold100,
         },
         info: {
-          light: color.Blue100,
-          main: color.Blue100,
-          dark: color.Purple100
+          light: 'rgb(163, 212, 255)',
+          main: 'rgb(63, 164, 237)',
+          dark: 'rgb(25, 121, 191)'
         },
         success: {
           light: color.Green300,
@@ -87,23 +95,27 @@ declare module "@mui/material/styles" {
     // more mui..
     typography: {
       subtitle1: {
-        fontSize: 12,
+        fontSize: 12, //Used in input-form-error-message
       },
     },
     //custom Styles
-    status: {
-      alarm: {
+    category: {
+      productType: {
         primary: color.Red100,
         secondary: color.Red200
       },
-      warning: {
+      productGroupe: {
+          primary: color.Green100,
+          secondary: color.Green300
+        },
+      tags: {
         primary: color.Gold100,
         secondary: color.Gold200
-      },
-      ok: {
-        primary: color.Green100,
-        secondary: color.Green300
-      }
+        },
+      user: {
+        primary: color.Red100,
+        secondary: color.Red200
+        }
     },
   });
 

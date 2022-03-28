@@ -7,13 +7,15 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import StyleIcon from '@mui/icons-material/Style';
 import StorageIcon from '@mui/icons-material/Storage';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
-import { AppBar, Box, CssBaseline, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, useTheme } from "@mui/material";
-import React, { CSSProperties } from "react";
+import { alpha, AppBar, Box, CssBaseline, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Toolbar, Typography, useTheme } from "@mui/material";
+import React, { CSSProperties, useCallback } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { User } from '../components/home/user';
 import { userLogoutAsync } from '../reduxSlices/userSlice';
+import SearchIcon from '@mui/icons-material/Search';
+
 
 export const drawerWidth = 240;
 
@@ -33,8 +35,70 @@ export default function HomePage() {
     alignItems: 'center',
     textAlign: 'center'
   };
+
+   const Search = styled('div') (()=> ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(3),
+          width: 'auto',
+        },
+      }));
+      
+      const SearchIconWrapper = styled('div')(() => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }));
+      
+      const StyledInputBase = styled(InputBase)(() => ({
+        color: 'inherit',
+        '& .MuiInputBase-input': {
+          padding: theme.spacing(1, 1, 1, 0),
+          // vertical padding + font size from searchIcon
+          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+          transition: theme.transitions.create('width'),
+          width: '100%',
+          [theme.breakpoints.up('md')]: {
+            width: '20ch',
+          },
+        },
+      }));
+
   //*************************** */
   
+  // const onTypingSearch = useCallback(
+  //   (input: string) =>
+  //   dispatch(searchStyles(input)).then(
+  //     () => {
+  //       // deliver matching result
+  //     },
+  //     (error) => {
+  //       // if search fail,  no match??
+  //       const resMessage =
+  //           (error.response &&
+  //             error.response.data &&
+  //             error.response.data.message) ||
+  //           error.message ||
+  //           error.toString();
+  //       console.log("Search of styles faild: " + resMessage);
+  //     }
+  //   ),
+  //   [dispatch]
+  // );
+
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -43,24 +107,24 @@ export default function HomePage() {
       <div style={{ background: theme.palette.secondary.main, color: theme.palette.secondary.contrastText, height: "100%"}}>
         <Toolbar style={{ background: theme.palette.primary.main, minHeight: '48px' }}/>
         <List >
-          <ListItem key={'user'} divider={true} sx={{ ...centeredContent, pt: 3, pb: 3 }}>
-            <h1>Em PLM</h1>
+          <ListItem key={'user'} divider={true} sx={{ ...centeredContent, pb: 5 }}>
+            <Typography variant="h3" fontFamily={'Righteous'} >EmPLM</Typography>
           </ListItem>
           <ListItemButton sx={
             { 
               ":hover": { backgroundColor: theme.palette.secondary.dark} 
             }
-          } key={'activestyles'} divider={true} component={Link} to={`/auth/activestyles`} onClick={handleDrawerToggle}>
+          } key={'mystyles'} divider={true} component={Link} to={`/mystyles`} onClick={handleDrawerToggle}>
             <ListItemIcon style={{ color: theme.palette.secondary.light }}>
              <FavoriteIcon/>
             </ListItemIcon>
-            <ListItemText primary={'Active Styles'} />
+            <ListItemText primary={'My Styles'} />
           </ListItemButton>
           <ListItemButton sx={
             { 
               ":hover": { backgroundColor: theme.palette.secondary.dark} 
             }
-          } key={'styles'} divider={true} component={Link} to={`/auth/styles`} onClick={handleDrawerToggle}>
+          } key={'styles'} divider={true} component={Link} to={`/styles`} onClick={handleDrawerToggle}>
             <ListItemIcon style={{ color: theme.palette.secondary.light }}>
               <StyleIcon/>
             </ListItemIcon>
@@ -70,7 +134,7 @@ export default function HomePage() {
             { 
               ":hover": { backgroundColor: theme.palette.secondary.dark} 
             }
-          } key={'templates'} divider={true} component={Link} to={`/auth/templates`} onClick={handleDrawerToggle}>
+          } key={'templates'} divider={true} component={Link} to={`/templates`} onClick={handleDrawerToggle}>
             <ListItemIcon style={{ color: theme.palette.secondary.light }}>
               <StorageIcon/>
             </ListItemIcon>
@@ -80,7 +144,7 @@ export default function HomePage() {
             { 
               ":hover": { backgroundColor: theme.palette.secondary.dark} 
             }
-          } key={'profile'} divider={true} component={Link} to={`/auth/profile`} onClick={handleDrawerToggle}>
+          } key={'profile'} divider={true} component={Link} to={`/profile`} onClick={handleDrawerToggle}>
             <ListItemIcon style={{ color: theme.palette.secondary.light }}>
               <PersonIcon />
             </ListItemIcon>
@@ -90,7 +154,7 @@ export default function HomePage() {
             { 
               ":hover": { backgroundColor: theme.palette.secondary.dark} 
             }
-          } key={'setup'} divider={true} component={Link} to={`/auth/setup`} onClick={handleDrawerToggle}>
+          } key={'setup'} divider={true} component={Link} to={`/setup`} onClick={handleDrawerToggle}>
             <ListItemIcon style={{ color: theme.palette.secondary.light }}>
               <SettingsAccessibilityIcon/>
             </ListItemIcon>
@@ -142,6 +206,15 @@ export default function HomePage() {
                 <MenuIcon />
               </IconButton>
               <Box sx={{ flexGrow: 1 }}></Box>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder={'Search..'}
+                  inputProps={{ 'aria-label': 'Search' }}
+                />
+              </Search>
               <User/>
               <IconButton
                 onClick={handleLoggout}

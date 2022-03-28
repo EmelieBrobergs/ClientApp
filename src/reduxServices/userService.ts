@@ -1,4 +1,4 @@
-import instance from "./axios/Instance";
+import instance from "./axios/iInstance";
 
 const edit = (user: IUser) => {
   return instance.patch("/appuser",
@@ -18,10 +18,29 @@ const editPassword = (userId: string, passwordObject: IEditPassword) => {
   })
 }
 
+// NOTE: Denna metod skapar "dubbel kod" med login i Auth - finns det ett bättre sätt att skriva på?
+const updateLocalstorage = (userId: string) => {
+  return instance.get(`/appuser/${userId}`)
+  .then((response) => {
+    if (response.data.accessToken) {
+      var token = {
+        accessToken : response.data.accessToken
+      }
+      var user = {
+        userId : response.data.user.id
+      }
+      localStorage.setItem("token", JSON.stringify(token));
+      localStorage.setItem("user", JSON.stringify(user)); // TODO: Vilken user info vill vi ha ? Brukar man ha ?
+    }
+    return true; // TODO: Blir detta rätt???
+  });
+}
+
 // TODO: Hämta vilket företag man tillhör
 
 
 export default {
   edit,
-  editPassword
+  editPassword,
+  updateLocalstorage
 };

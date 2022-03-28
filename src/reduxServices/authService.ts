@@ -29,7 +29,8 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user") || '{}');
+  const user = JSON.parse(localStorage.getItem("user") || '{}') as {userId: string};
+  return user.userId;
 };
 
 export default {

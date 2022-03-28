@@ -2,17 +2,19 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import authService from "../reduxServices/authService";
 import userService from "../reduxServices/userService";
 
-const axios = require('axios');
-
-interface AuthState {
+interface UserState {
   currentUser: IUser | null;
+  isJwtValid: boolean; // känns inte 100% bra !, kan åeranvändas fel...tänker jag.
+  //expiresAt: Date | null;  // Set time of when Token expires ? / eller ska man bara ha en "endpoint som kollar token när man laddar om"?
   loading: boolean;
   error: string | null;
   message: string | null;
 }
 
-const initialState: AuthState = {
+const initialState: UserState = {
   currentUser: null,
+  isJwtValid: false,
+  //expiresAt: null,
   loading: false,
   error: null,
   message: null
@@ -30,6 +32,15 @@ export const userLogoutAsync = createAsyncThunk(
   'users/logout',
   async () => {
     await authService.logout();
+  }
+);
+
+export const userJwtValidation = createAsyncThunk<boolean>(
+  'users/jwtValidation',
+  async () => {
+    const userId = await authService.getCurrentUser();
+    const response = await userService.updateLocalstorage(userId);
+    return response;
   }
 );
 
@@ -66,10 +77,14 @@ export const userSlice = createSlice({
     userResetMessages: (state) => {
       state.error = null;
       state.message = null;
+    },
+    userResetIsJwtValid: (state) => {
+      state.isJwtValid = false;
     }
   },
   extraReducers: (builder) => {
     builder
+    // LOGIN
       .addCase(userLoginAsync.pending, state => {
         state.currentUser = null;
         state.loading = true;
@@ -92,10 +107,20 @@ export const userSlice = createSlice({
         }
         state.message = null;
       })
+      // LOGOUT
       .addCase(userLogoutAsync.fulfilled, (state) => {
         state.currentUser = null;
         state.message = null;
       })
+      // JWT VALIDATION
+      .addCase(userJwtValidation.fulfilled, (state, action) => {
+        state.isJwtValid = action.payload;
+      })
+      .addCase(userJwtValidation.rejected, (state) => {
+        state.loading = false;
+        state.isJwtValid = false;
+      })
+      // EDIT NAME
       .addCase(userEditNameAsync.pending, state => {
         state.loading = true;
         state.error = null;
@@ -118,6 +143,7 @@ export const userSlice = createSlice({
         }
         state.message = 'Faild to update user name';
       })
+      // EDIT PASSWORD
       .addCase(userEditPasswordAsync.pending, state => {
         state.loading = true;
         state.error = null;
@@ -140,6 +166,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { userResetMessages } = userSlice.actions;
+export const { userResetMessages, userResetIsJwtValid } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,10 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import userReducer from '../reduxSlices/userSlice';
+import styleReducer from '../reduxSlices/styleSlice';
 
 const store = configureStore({
     //devTools: true, // enable the Redux DevTools Extension. Från https://www.bezkoder.com/react-redux-login-example-toolkit-hooks/
     reducer: {
         user: userReducer,
+        style: styleReducer
     }
 })
 
