@@ -1,4 +1,4 @@
-import instance from "./axios/iInstance";
+import instance from "./axios/instance";
 
 const edit = (user: IUser) => {
   return instance.patch("/appuser",

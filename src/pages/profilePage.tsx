@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import TabPanel from "../components/pProfile/TabPanel";
+import TabPanel from "../components/profile/TabPanel";
 
 const ProfilePage = () => {
   return (

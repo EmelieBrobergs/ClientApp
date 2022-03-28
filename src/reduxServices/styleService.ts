@@ -1,4 +1,4 @@
-import instance from "./axios/iInstance";
+import instance from "./axios/instance";
 
 const fetchStyles = (companyId: number) => {
   return instance.get(`/style/company/${companyId}`
