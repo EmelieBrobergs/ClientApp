@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ProfileForm } from "./pProfileForm";
-import { PasswordForm } from "./pPasswordForm";
+import { PasswordForm } from "./passwordForm";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   userEditNameAsync,

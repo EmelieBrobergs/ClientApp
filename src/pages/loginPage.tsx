@@ -2,7 +2,7 @@ import { Paper, Typography, useTheme } from "@mui/material";
 import { CSSProperties, useCallback, useState } from "react";
 import { Location, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import LoginForm from "../components/login/lLoginForm";
+import LoginForm from "../components/login/loginForm";
 import { userLoginAsync } from "../reduxSlices/userSlice";
 
 function LoginPage() {
