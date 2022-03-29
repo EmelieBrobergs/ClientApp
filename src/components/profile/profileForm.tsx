@@ -4,7 +4,7 @@ import * as React from "react";
 import { CSSProperties, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { userResetMessages } from "../../reduxSlices/userSlice";
-import validationsForm from "./vValidationSchema";
+import validationsForm from "./validationSchema";
 
 interface Values {
   user: IUser | null;

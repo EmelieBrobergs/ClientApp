@@ -5,7 +5,7 @@ import * as React from "react";
 import { CSSProperties, useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { userResetMessages } from "../../reduxSlices/userSlice";
-import validationsForm from "./vValidationSchema";
+import validationsForm from "./validationSchema";
 
 interface Values {
   oldPass: string;
