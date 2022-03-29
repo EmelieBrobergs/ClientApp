@@ -1,20 +1,17 @@
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import StyleIcon from '@mui/icons-material/Style';
-import StorageIcon from '@mui/icons-material/Storage';
+import SearchIcon from '@mui/icons-material/Search';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
+import StorageIcon from '@mui/icons-material/Storage';
+import StyleIcon from '@mui/icons-material/Style';
 import { alpha, AppBar, Box, CssBaseline, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Toolbar, Typography, useTheme } from "@mui/material";
-import React, { CSSProperties, useCallback } from "react";
+import React, { CSSProperties } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { useAppSelector } from '../app/hooks';
+import { Loggoute } from '../components/home/loggoute';
 import { User } from '../components/home/user';
-import { userLogoutAsync } from '../reduxSlices/userSlice';
-import SearchIcon from '@mui/icons-material/Search';
 
 
 export const drawerWidth = 240;
@@ -23,7 +20,6 @@ export default function HomePage() {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const user = useAppSelector(state => state.user.currentUser);
-  const dispatch = useAppDispatch();
 
   //*************************** */
 
@@ -167,10 +163,6 @@ export default function HomePage() {
   
   let navigate = useNavigate();
 
-  const handleLoggout = () => {
-    dispatch(userLogoutAsync());
-  };
-
     // NOTE: This should never be renderd du to auth requeries for Routing path. Right?
   if (!user) {
     return (
@@ -216,16 +208,7 @@ export default function HomePage() {
                 />
               </Search>
               <User/>
-              <IconButton
-                onClick={handleLoggout}
-                size="large"
-                edge="end"
-                color="inherit"
-                aria-label="logout"
-                sx={{ ml: 2 }}
-              >
-                <ExitToAppIcon />
-              </IconButton>
+              <Loggoute/>
             </Toolbar>
           </AppBar>
           <Box

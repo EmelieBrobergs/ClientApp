@@ -60,7 +60,7 @@ const StylesPage = () => {
             />
          </Search>
         </div>
-        <Button variant='contained' color='secondary' size="small">+ CREATE NEW</Button>
+        <Button variant='contained' color='secondary' size="small">+ Create new</Button>
       </div>
       <MultipleSelectChip/>
       <Divider sx={{ mt: 1, mb: 1 }}/>
@@ -70,7 +70,7 @@ const StylesPage = () => {
         spacing={1}
       >
          {styles?.map((item: IStyle) => (
-            <Grid item xs={12} sm={6} lg={4} xl={3}>
+            <Grid key={item.id} item xs={12} sm={6} lg={4} xl={3}>
             <StyleCard 
                id={item.id}
                orderNumber={item.orderNumber}
@@ -86,11 +86,6 @@ const StylesPage = () => {
 };
 
 export default StylesPage;
-
-// const root: CSSProperties = {
-//   margin: 20,
-// };
-
 
 // TODO:
 // Skapa huvudboxen, med runda hörn, skugga, title, sökfält, skapa ny knapp

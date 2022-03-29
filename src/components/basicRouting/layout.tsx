@@ -7,7 +7,7 @@ import ProtectedNotFoundPage from "../../pages/protectedNotFoundPage";
 import StylesPage from "../../pages/stylesPage";
 import TemplatesPage from "../../pages/templatesPage";
 import RequireAuth from "./requierAuth";
-import StylePage from "../../pages/stylePage";
+import StyleHomePage from "../../pages/styleHomePage";
 import StyleInfo from "../style/styleInfo";
 import HandleSample from "../style/handleSample";
 import Fitting from "../style/fitting";
@@ -29,7 +29,7 @@ export default function Layout() {
                 <Route path="*" element={<ProtectedNotFoundPage />} />
             </Route>
             <Route path="/style" element={<RequireAuth>
-                        <StylePage/>
+                        <StyleHomePage/>
                     </RequireAuth>}>
                 <Route path=":styleId/info" element={<StyleInfo />} />
                 <Route path=":styleId/mmntlist" element={<MmntList />} />

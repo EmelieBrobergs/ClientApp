@@ -97,6 +97,9 @@ declare module "@mui/material/styles" {
       subtitle1: {
         fontSize: 12, //Used in input-form-error-message
       },
+      button: {
+        textTransform: 'none'
+      },
     },
     //custom Styles
     category: {

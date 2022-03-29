@@ -24,7 +24,7 @@ const StyleCard = (props: Props) => {
                         </Tooltip>
                         <div style={{ display: 'flex', flexGrow: '1' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', overflow: "hidden", textOverflow: "ellipsis", minWidth: '6rem', flexShrink: '0' }}>
-                                <Tooltip title="Size range" placement="left-start" arrow >
+                                <Tooltip title="Order number" placement="left-start" arrow >
                                     <Typography  variant="caption">Order No: {props.orderNumber}</Typography>
                                 </Tooltip>
                                 <Tooltip title="Size range" placement="left-start" arrow >
@@ -38,8 +38,8 @@ const StyleCard = (props: Props) => {
                                 </Tooltip>
                             </div>
                             <div style={{ ...centeredTags, flexWrap: 'wrap' }}>
-                                {props.tags.map((item: string) => (
-                                    <Chip size="small" style={{ margin: '2px', padding: '0px', backgroundColor: theme.category.tags.primary, color: theme.category.tags.secondary}} label={`#${item}`} />
+                                {props.tags.map((item: string, index: number) => (
+                                    <Chip key={index} size="small" style={{ margin: '2px', padding: '0px', backgroundColor: theme.category.tags.primary, color: theme.category.tags.secondary}} label={`#${item}`} />
                                 ))}
                             </div>
                         </div>
