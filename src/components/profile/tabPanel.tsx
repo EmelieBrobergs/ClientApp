@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ProfileForm } from "./pProfileForm";
+import { ProfileForm } from "./profileForm";
 import { PasswordForm } from "./passwordForm";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
