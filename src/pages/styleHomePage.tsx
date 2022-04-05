@@ -3,18 +3,18 @@ import { AppBar, Box, CssBaseline, Toolbar, Typography, useTheme } from "@mui/ma
 import { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
-import AppBarDropDownMenu from "../components/home/appBarDropDownMenu";
-import IconeButtonStack from "../components/home/iconeButtonStack";
-import { Loggoute } from "../components/home/loggoute";
-import { User } from "../components/home/user";
+import AppBarDropDownMenu from "../components/appBar/appBarDropDownMenu";
+import IconeButtonStack, { iconButtonStackWidth } from "../components/style/home/iconeButtonStack";
+import { Loggoute } from "../components/appBar/loggoute";
+import { User } from "../components/appBar/user";
+import EasyInfoBox from "../components/style/home/easyInfoBox";
 
-
+export const appBarHeight = 48;
 
 const StyleHomePage = () => {
     const theme = useTheme();
     const { styleId } = useParams<"styleId">();
-    const styles = useAppSelector(state => state.style.styles);
-    const [displayStyle, setDisplayStyle] = useState(styles?.find(s => s.id == styleId));
+    const style = useAppSelector(state => state.style.styles?.find(s => s.id == styleId));
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -22,21 +22,22 @@ const StyleHomePage = () => {
             <AppBar
                 position="fixed"
             >
-                <Toolbar 
-                    style={{ 
-                        background: theme.palette.primary.main, 
-                        minHeight: '48px' 
+                <Toolbar
+                    style={{
+                        background: theme.palette.primary.main,
+                        minHeight: `${appBarHeight}px`,
+                        maxHeight: `${appBarHeight}px`
                     }}>
                     <AppBarDropDownMenu />
-                    <Box 
-                        sx={{ 
-                            flexGrow: 1, 
-                            overflow: "hidden", 
-                            textOverflow: "ellipsis", 
-                            display: 'flex', 
-                            justifyContent: 'center' 
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            display: 'flex',
+                            justifyContent: 'center'
                         }}>
-                        <Typography>{displayStyle?.orderNumber} : {displayStyle?.name}</Typography>
+                        <Typography variant="body1">{style?.orderNumber} : {style?.name}</Typography>
                     </Box>
                     <User />
                     <Loggoute />
@@ -45,8 +46,8 @@ const StyleHomePage = () => {
             <Box
                 sx={{
                     pt: '150px',
-                    minHeight: '100vh',
-                    minWidth: `40px`,
+                    minHeight: '100vh', //Går denna att lägga på huvudboxen ?
+                    minWidth: `${iconButtonStackWidth}px`,
                     background: theme.palette.secondary.main,
                 }}
             >
@@ -57,14 +58,24 @@ const StyleHomePage = () => {
                 sx={{
                     flexGrow: 1,
                     p: '16px',
-                    pt: '64px',
-                    minHeight: '100vh',
-                    width: `calc(100% - 40px)`,
+                    pt: `calc(${appBarHeight}px + 16px)`,
+                    minHeight: '100vh', //Går denna att lägga på huvudboxen ?
+                    width: `calc(100% - ${iconButtonStackWidth}px)`,  //?? behövs utränkninh?
                     background: theme.palette.secondary.main,
                 }}
             >
                 {/* Outlet: Renders the child route's element, if there is one. */}
                 <Outlet />
+            </Box>
+            <Box
+                sx={{
+                    pt: `calc(${appBarHeight}px + 16px)`,
+                    minHeight: '100vh', //Går denna att lägga på huvudboxen ?
+                    background: theme.palette.secondary.dark,
+                    display: { xs: 'none', md: 'block' }
+                }}
+            >
+                <EasyInfoBox styleId={style?.id} />
             </Box>
         </Box>
     );

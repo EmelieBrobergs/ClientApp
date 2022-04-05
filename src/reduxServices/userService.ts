@@ -10,7 +10,7 @@ const edit = (user: IUser) => {
 }
 
 const editPassword = (userId: string, passwordObject: IEditPassword) => {
-  return instance.patch(`/appuser/${userId}`, {
+  return instance.patch(`/appuser/edit-password/${userId}`, {
     ...passwordObject
   })
   .then((response) => {

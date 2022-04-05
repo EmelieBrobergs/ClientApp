@@ -10,8 +10,8 @@ import React, { CSSProperties } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useAppSelector } from '../app/hooks';
-import { Loggoute } from '../components/home/loggoute';
-import { User } from '../components/home/user';
+import { Loggoute } from '../components/appBar/loggoute';
+import { User } from '../components/appBar/user';
 
 
 export const drawerWidth = 240;

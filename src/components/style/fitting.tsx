@@ -12,12 +12,21 @@ const Fitting = () => {
     return (
         <Paper elevation={4} sx={{ p: 1 }}>
             <Typography variant="h6">Fitting</Typography>
-            <Divider sx={{ mt: 1, mb: 1 }} />
+            <Divider sx={{ mb: 1 }} />
             {displayStyle &&
             <div>
                 <Box>
                     <Typography variant="body1">Style Id: {displayStyle.id}</Typography>
-                    <Typography variant="body2">For fitting data more API call and seed data need to be created</Typography>
+                </Box>
+                <Box sx={{ pt: 5, tb: 5}}>
+                    <Typography variant="h5">Information att presentera</Typography>
+                    <Typography variant="body2">Fitting array length</Typography>
+                    <Typography variant="body1">Detail data of One Fitting object)</Typography>
+                    <Typography variant="body2">Fitting.Name</Typography>
+                    <Typography variant="body2">Fitting.CreationDate</Typography>
+                    <Typography variant="body2">Fitting.Pictures (hur sparas dessa i db, hämtas ?)</Typography>
+                    <Typography variant="body2">Fitting.Comment</Typography>
+                    <Typography variant="body2">Fitting.FinalComment</Typography>
                 </Box>
             </div>
             }

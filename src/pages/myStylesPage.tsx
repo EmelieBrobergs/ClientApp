@@ -32,13 +32,7 @@ const MyStylesPage = () => {
     >
             {styles?.map((item: IStyle) => (
             <Grid key={item.id} item xs={12} sm={6} lg={4} xl={3}>
-            <StyleCard 
-               id={item.id}
-               orderNumber={item.orderNumber}
-               name={item.name}
-               productType={item.productType}
-               productGroup={item.productGroup}
-               assignedToUserId={item.assignedToUserId} companyId={""} description={""} tags={item.tags}/>
+            <StyleCard style={item} />
             </Grid>
          ))}
     </Grid>

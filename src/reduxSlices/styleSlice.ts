@@ -18,9 +18,29 @@ const initialState: StyleState = {
 // TODO: DB struktur och underliggande data??
 export const stylesFetchAsync = createAsyncThunk(
   'style/fetchAllByCompanyId',
-  async (companyId: number) => {
+  async (companyId: string) => {
     const response = await styleService.fetchStyles(companyId);
     return response;
+  }
+);
+
+export const styleEditInfoAsync = createAsyncThunk(
+  'style/editInfo',
+  async (data: IEditStyleInfo) => {
+    if(data.style) {
+      var copyStyle = { ...data.style};
+      if(copyStyle){
+        copyStyle.name = data.name;
+        copyStyle.orderNumber = data.orderNumber;
+        copyStyle.styleNumber = data.styleNumber;
+        copyStyle.productType = data.productType;
+        copyStyle.productGroup = data.productGroup;
+        copyStyle.description = data.description;
+        
+        const response = await styleService.edit(copyStyle);
+        return response;
+      }
+    }
   }
 );
 
@@ -61,6 +81,31 @@ export const styleSlice = createSlice({
         }
         state.message = null;
       })
+         // EDIT STYLE INFO
+         .addCase(styleEditInfoAsync.pending, state => {
+          state.loading = true;
+          state.error = null;
+          state.message = null;
+        })
+        .addCase(styleEditInfoAsync.fulfilled, (state, action) => {
+          state.loading = false;
+          if(action.payload) {
+            // Vad göra ? Får en style tillbaka - finns inget state för det ? som motsvarar "current user" ex  ...
+            state.styles = state.styles?.filter(s => s.id != action.payload?.id);  // TA BORT KOMMENTAR NÄR FUNKAR
+            state.styles?.push(action.payload); // TA BORT KOMMENTAR NÄR FUNKAR
+          }
+          state.error = null;
+          state.message = "Style Information updated";
+        })
+        .addCase(styleEditInfoAsync.rejected, (state, action) => {
+          state.loading = false;
+          if(action.payload) {
+            state.error = action.payload as string;
+          } else {
+            state.error = 'Failed to update Style Information';
+          }
+          state.message = 'Faild to update Style Information';
+        })
   }
 });
 

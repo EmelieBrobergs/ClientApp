@@ -10,7 +10,7 @@ interface IUser {
   firstName: string;
   lastName: string;
   email: string;
-  companyId: number | null;
+  companyId: string | undefined;
 }
 
 interface IEditPassword {
@@ -19,9 +19,40 @@ interface IEditPassword {
 }
 
 interface IStyle {
-  id: int;
-  companyId: int;
-  assignedToUserId: int;
+  id: string;   // NOTE: Ändra till number ?
+  companyId: string;
+  assignedToUserId: string;
+  styleNumber: string;
+  orderNumber: string;
+  name: string;
+  description: string;
+  productType: string;
+  productGroup: string;
+  tags: string[];
+  // måste lägga till dessa under nu???
+  // measurements: []
+  //   fittings: []
+}
+
+interface IEditStyleInfo {
+  style: IStyle | undefined;
+  // assignedToUserId: string;
+  styleNumber: string;
+  orderNumber: string;
+  name: string;
+  description: string;
+  productType: string;
+  productGroup: string;
+  // tags: string[];
+}
+
+//********************************* */
+//*** More interfaces added.... */
+interface IStyleInfoViewModel {
+  id: string;
+  companyId: string;
+  assignedToUserId: string;
+  styleNumber: string;
   orderNumber: string;
   name: string;
   description: string;
@@ -29,6 +60,7 @@ interface IStyle {
   productGroup: string;
   tags: string[];
 }
+
 
 // interface IStyleCard {
 //   id: int;

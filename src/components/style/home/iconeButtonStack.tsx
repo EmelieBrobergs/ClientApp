@@ -11,6 +11,8 @@ interface Props {
     styleId: string | undefined;
 }
 
+export const iconButtonStackWidth = 40;
+
 export default function IconeButtonStack({ styleId }: Props) {
     const theme = useTheme();
 
@@ -22,6 +24,7 @@ export default function IconeButtonStack({ styleId }: Props) {
 
     return (
         <Stack
+            width={`${iconButtonStackWidth}px`}
             direction="column"
             justifyContent="center"
             alignItems="flex-start"

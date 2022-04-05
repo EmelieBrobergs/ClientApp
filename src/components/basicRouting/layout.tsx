@@ -8,10 +8,10 @@ import StylesPage from "../../pages/stylesPage";
 import TemplatesPage from "../../pages/templatesPage";
 import RequireAuth from "./requierAuth";
 import StyleHomePage from "../../pages/styleHomePage";
-import StyleInfo from "../style/styleInfo";
+import StyleInfo from "../style/info/styleInfo";
 import HandleSample from "../style/handleSample";
 import Fitting from "../style/fitting";
-import MmntList from "../style/mmntlist";
+import StyleMmntList from "../style/mmntList/styleMmntList";
 
 export default function Layout() {
     return (
@@ -32,7 +32,7 @@ export default function Layout() {
                         <StyleHomePage/>
                     </RequireAuth>}>
                 <Route path=":styleId/info" element={<StyleInfo />} />
-                <Route path=":styleId/mmntlist" element={<MmntList />} />
+                <Route path=":styleId/mmntlist" element={<StyleMmntList />} />
                 <Route path=":styleId/fitting" element={<Fitting />} />
                 <Route path=":styleId/handlesample" element={<HandleSample />} />
                 <Route path="*" element={<ProtectedNotFoundPage />} />
