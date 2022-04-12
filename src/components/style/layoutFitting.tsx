@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { useAppSelector } from "../../app/hooks";
 
-const Fitting = () => {
+const LayoutFitting = () => {
     const theme = useTheme();
     const { styleId } = useParams<"styleId">();
     const styles = useAppSelector(state => state.style.styles);
@@ -37,4 +37,4 @@ const Fitting = () => {
     );
 };
 
-export default Fitting;
+export default LayoutFitting;

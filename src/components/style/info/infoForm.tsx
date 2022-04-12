@@ -17,19 +17,19 @@ interface Props {
 
 export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, updateMessage }) => {
   const theme = useTheme();
-  const [displayStyle, setDisplayStyle] = React.useState(useAppSelector(state => state.style.styles)?.find(s => s.id == styleId));
+  const displayStyle = useAppSelector(state => state.style.styles)?.find(s => s.id === styleId);
   const dispatch = useAppDispatch();
 
   var initialValues: Values = {
     style: displayStyle,
-    // assignedToUserId: displayStyle ? displayStyle.assignedToUserId : "",
+    assignedToUserId: displayStyle ? displayStyle.assignedToUserId : undefined,
     styleNumber: displayStyle ? displayStyle.styleNumber : "",
     orderNumber: displayStyle ? displayStyle.orderNumber : "",
     name: displayStyle ? displayStyle.name : "",
     description: displayStyle ? displayStyle.description : "",
     productType: displayStyle ? displayStyle.productType : "",
     productGroup: displayStyle ? displayStyle.productGroup : "",
-    // tags: displayStyle ? displayStyle.tags : [],
+    tags: displayStyle ? displayStyle.tags : undefined,
   };
 
   useEffect(() => {

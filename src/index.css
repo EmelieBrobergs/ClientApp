@@ -5,6 +5,10 @@
   outline: 0;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Righteous&display=swap');
 
  /* will be used for logo text: font-family: 'Righteous', cursive; */

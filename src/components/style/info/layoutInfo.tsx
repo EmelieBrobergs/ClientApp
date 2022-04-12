@@ -1,16 +1,13 @@
-import { Box, Divider, Paper, Typography, useTheme } from "@mui/material";
-import { ErrorMessage } from "formik";
-import { stringify } from "querystring";
+import { Divider, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { styleEditInfoAsync } from "../../../reduxSlices/styleSlice";
 import { InfoForm } from "./infoForm";
 
-const StyleInfo = () => {
-    const theme = useTheme();
+const LayoutInfo = () => {
     const { styleId } = useParams<"styleId">();
-    const styles = useAppSelector(state => state.style.styles);
+    const styles = useAppSelector(state => state.style.styles); // NotE: Is there a better way ?
     const [displayStyle, setDisplayStyle] = useState(styles?.find(s => s.id == styleId));
 
     const dispatch = useAppDispatch();
@@ -19,9 +16,11 @@ const StyleInfo = () => {
         styleNumber: string;
         orderNumber: string;
         name: string;
+        assignedToUserId: string | undefined;
         description: string;
         productType: string;
         productGroup: string;
+        tags: string[] | undefined;
     }) => {
       dispatch(styleEditInfoAsync(data));
     };
@@ -30,21 +29,25 @@ const StyleInfo = () => {
     var messageText = useAppSelector((state) => state.style.message);
 
     return (
+
         <Paper elevation={4} sx={{ p: 1 }}>
             <Typography variant="h6">Style Information</Typography>
             <Divider sx={{ mb: 1 }} />
             {displayStyle &&
-            <InfoForm 
-                styleId={styleId} 
-                onSubmit={({style, styleNumber, orderNumber, name, description, productType, productGroup}) => {
-                    onInfoFormSubmit({style, styleNumber, orderNumber, name, description, productType, productGroup});
-                }} 
-                updateError={errorText} 
-                updateMessage={messageText}
-            />
+                <InfoForm 
+                    styleId={displayStyle.id} 
+                    onSubmit={({style, styleNumber, orderNumber, name, description, productType, productGroup, tags, assignedToUserId}) => {
+                        onInfoFormSubmit({style, styleNumber, orderNumber, name, description, productType, productGroup, tags, assignedToUserId});
+                    }} 
+                    updateError={errorText} 
+                    updateMessage={messageText}
+                />
+            }
+            {!displayStyle &&
+                <Typography variant="body1">No style loaded...</Typography>
             }
         </Paper>
     );
 };
 
-export default StyleInfo;
+export default LayoutInfo;

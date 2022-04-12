@@ -4,7 +4,7 @@ interface IUserCredentials {
   email: string;
   password: string;
 }
-  
+
 interface IUser {
   id: string;
   firstName: string;
@@ -18,10 +18,12 @@ interface IEditPassword {
   newPass: string;
 }
 
+
+// STYLE **********************************
 interface IStyle {
   id: string;   // NOTE: Ändra till number ?
   companyId: string;
-  assignedToUserId: string;
+  assignedToUserId: string | undefined;
   styleNumber: string;
   orderNumber: string;
   name: string;
@@ -29,45 +31,57 @@ interface IStyle {
   productType: string;
   productGroup: string;
   tags: string[];
-  // måste lägga till dessa under nu???
-  // measurements: []
-  //   fittings: []
+  measurements: IMeasurement[] | [];
+  // fittings: []
 }
-
 interface IEditStyleInfo {
   style: IStyle | undefined;
-  // assignedToUserId: string;
+  assignedToUserId: string | undefined;
   styleNumber: string;
   orderNumber: string;
   name: string;
   description: string;
   productType: string;
   productGroup: string;
-  // tags: string[];
+  tags: string[] | undefined;
 }
+// END STYLE **********************************
 
-//********************************* */
-//*** More interfaces added.... */
-interface IStyleInfoViewModel {
+interface IMeasurement {
   id: string;
-  companyId: string;
-  assignedToUserId: string;
-  styleNumber: string;
-  orderNumber: string;
+  parentMeasurementId?: string;
   name: string;
-  description: string;
-  productType: string;
-  productGroup: string;
-  tags: string[];
+  styleId: string;
+  //measurementPoints: IMeasurementPoint[] | [];
+  createdDate: Date;
 }
 
+interface IMeasurementPoint {
+  id: string;
+  shortName: string;
+  description: string;
+  tolerance: number;
+  measurementId: string;
+}
 
-// interface IStyleCard {
-//   id: int;
-//   orderNumber: string;
-//   assignedToUserId: int | null;
-//   name: string;
-//   productType: string;
-//   productGroupe: string;
-//   sizeRange: string | undefined;
-// }
+interface ISizeRange {
+  id: string;
+  baseSizeName: string;
+  measurementId: string;
+  sizes: ISize[];
+}
+
+interface ISize {
+  id: string;
+  name: string;
+  orderIndex: number;
+  sizeRangeId: string;
+}
+
+interface IGrading {
+  id: string;
+  sizeId: string;
+  measurementPointId: string;
+  value: number;
+}
+

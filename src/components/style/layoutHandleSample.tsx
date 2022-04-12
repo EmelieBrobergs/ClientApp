@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { useAppSelector } from "../../app/hooks";
 
-const HandleSample = () => {
+const LayoutHandleSample = () => {
     const theme = useTheme();
     const { styleId } = useParams<"styleId">();
     const styles = useAppSelector(state => state.style.styles);
@@ -36,4 +36,4 @@ const HandleSample = () => {
     );
 };
 
-export default HandleSample;
+export default LayoutHandleSample;

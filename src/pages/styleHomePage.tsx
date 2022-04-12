@@ -7,7 +7,7 @@ import AppBarDropDownMenu from "../components/appBar/appBarDropDownMenu";
 import IconeButtonStack, { iconButtonStackWidth } from "../components/style/home/iconeButtonStack";
 import { Loggoute } from "../components/appBar/loggoute";
 import { User } from "../components/appBar/user";
-import EasyInfoBox from "../components/style/home/easyInfoBox";
+import EasyInfoBox, { easyInfoBoxWidth } from "../components/style/home/easyInfoBox";
 
 export const appBarHeight = 48;
 
@@ -17,7 +17,7 @@ const StyleHomePage = () => {
     const style = useAppSelector(state => state.style.styles?.find(s => s.id == styleId));
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', width: '100vw' }}>
             <CssBaseline />
             <AppBar
                 position="fixed"
@@ -37,7 +37,7 @@ const StyleHomePage = () => {
                             display: 'flex',
                             justifyContent: 'center'
                         }}>
-                        <Typography variant="body1">{style?.orderNumber} : {style?.name}</Typography>
+                        <Typography variant="body1">{style?.styleNumber} : {style?.name}</Typography>
                     </Box>
                     <User />
                     <Loggoute />
@@ -46,7 +46,7 @@ const StyleHomePage = () => {
             <Box
                 sx={{
                     pt: '150px',
-                    minHeight: '100vh', //Går denna att lägga på huvudboxen ?
+                    minHeight: '100vh',
                     minWidth: `${iconButtonStackWidth}px`,
                     background: theme.palette.secondary.main,
                 }}
@@ -59,8 +59,8 @@ const StyleHomePage = () => {
                     flexGrow: 1,
                     p: '16px',
                     pt: `calc(${appBarHeight}px + 16px)`,
-                    minHeight: '100vh', //Går denna att lägga på huvudboxen ?
-                    width: `calc(100% - ${iconButtonStackWidth}px)`,  //?? behövs utränkninh?
+                    minHeight: '100vh',
+                    width: {xs: `calc(100% - ${iconButtonStackWidth}px)`, md: `calc(100% - (${iconButtonStackWidth}px + ${easyInfoBoxWidth}px))`},
                     background: theme.palette.secondary.main,
                 }}
             >
@@ -70,7 +70,7 @@ const StyleHomePage = () => {
             <Box
                 sx={{
                     pt: `calc(${appBarHeight}px + 16px)`,
-                    minHeight: '100vh', //Går denna att lägga på huvudboxen ?
+                    minHeight: '100vh', 
                     background: theme.palette.secondary.dark,
                     display: { xs: 'none', md: 'block' }
                 }}

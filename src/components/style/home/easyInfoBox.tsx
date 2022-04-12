@@ -10,7 +10,7 @@ export const easyInfoBoxWidth = 240;
 
 export default function EasyInfoBox({ styleId }: Props) {
     const theme = useTheme();
-    const style = useAppSelector(state => state.style.styles?.find(s => s.id == styleId));
+    const style = useAppSelector(state => state.style.styles?.find(s => s.id === styleId));
 
     function displayRow(label: string, data: string | undefined) {
         return (
@@ -32,11 +32,11 @@ export default function EasyInfoBox({ styleId }: Props) {
                {displayRow('Style No', style?.styleNumber)}
                {displayRow('Order No', style?.orderNumber)}
                {displayRow('Name', style?.name)}
-               {displayRow('Assigned To', style?.assignedToUserId)}
+               {displayRow('Assigned To', style?.assignedToUserId?.toString())}
                {displayRow('Group', style?.productGroup)}
                {displayRow('Type', style?.productType)}
                {displayRow('Based on', '..data saknas.. ')}
-               {displayRow('Size', '..hämta data..')}
+               {displayRow('Size Range', '..hämta data..')}
            </div>
            <Divider sx={{my: 1}} light/>
            <div>
