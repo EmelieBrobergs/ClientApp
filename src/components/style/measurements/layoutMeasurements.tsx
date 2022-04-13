@@ -14,6 +14,7 @@ const LayoutMeasurements = () => {
 
     useEffect(() => {
         if (styleId) dispatch(measurementsFetchAsync(styleId));
+        console.log("Log: File layoutMeasurement.tsx useEffect körs");
     }, []);
 
     // useEffect(() => {

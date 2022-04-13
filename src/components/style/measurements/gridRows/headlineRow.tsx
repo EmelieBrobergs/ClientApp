@@ -1,45 +1,37 @@
-import { makeStyles, Grid, Box, useTheme, Typography } from "@mui/material";
+import { useTheme, Typography } from "@mui/material";
+import { useAppSelector } from '../../../../app/hooks';
 
+interface Props {
+  sizeRangeId: string;
+}
+function HeadlineRow({ sizeRangeId }: Props) {
+  const theme = useTheme();
+  const sizeRange = useAppSelector(state => state.sizeRange.sizeRanges.find(sr => sr.id == sizeRangeId));
 
-function HeadlineRow() {
-    const theme = useTheme();
-    const sizeRange: string[] = ['XS', 'S', 'M', 'L', 'XL'];
-    return (
-      <Grid
-        container
-        item
-        md={12}
-        lg={12}
-        spacing={0}
-        style={{ borderBottom: `1px solid ${theme.palette.primary.light}`, minWidth: '14rem' }}
-      >
-        <Grid item  sx={{minWidth: '2rem'}}>
-          <Box sx={{fontWeight: "bold", background: theme.palette.info.light, border: `1px solid ${theme.palette.info.dark}` }} textAlign="left">
-            o
-          </Box>
-        </Grid>
-        <Grid item  sx={{minWidth: '5rem'}}>
-          <Box sx={{fontWeight: "bold", background: theme.palette.info.light, border: `1px solid ${theme.palette.info.dark}`}} textAlign="left">
-            Measurement Point
-          </Box>
-        </Grid>
-        <Grid item sx={{minWidth: '1rem'}}>
-          <Box sx={{fontWeight: "bold", background: theme.palette.info.light, border: `1px solid ${theme.palette.info.dark}`}} textAlign="center">
-            TOL DIFF
-          </Box>
-        </Grid>
-        {sizeRange.map((size: string, index: number) => (
-            <Grid item key={index} style={{ width: '4rem', background: theme.palette.warning.light, display: 'flex', justifyContent: 'center', border: `1px solid ${theme.palette.warning.dark}` }}>
-                <Typography>{size}</Typography>
-            </Grid>
-        ))}
-      </Grid>
-    );
+  return (
+    <>
+      {(sizeRange != undefined) &&
+        // <div className={`grid grid-cols-${(3 + sizeRange.sizes.length)}`}>  // TODO: Improv Tailwind set up to be able to render caculated grid cols
+        <div className={`grid grid-cols-12`}>
+          <Typography variant='body1' sx={{ fontWeight: 'bold' }}>sn</Typography>
+          <Typography variant='body1' sx={{ fontWeight: 'bold' }}>Description</Typography>
+          <Typography variant='body1' sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>Tolerance</Typography>
+          {sizeRange.sizes.map(sr => (
+            sr.name == sizeRange.baseSizeName ?
+              <Typography key={sr.id} variant='body1' sx={{
+                fontWeight: 'bold', color: theme.palette.info.main,
+                backgroundColor: theme.palette.secondary.main, display: 'flex', justifyContent: 'center'
+              }}>{sr.name}</Typography>
+              :
+              <Typography key={sr.id} variant='body1' sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>{sr.name}</Typography>
+          ))}
+        </div>
+      }
+      {!sizeRange &&
+        <div>No size range loaded...no measurement point will de renderd?? hm..or should they?</div> // TODO: improv alt. render
+      }
+    </>
+  );
 }
 
 export default HeadlineRow;
-{/* <Grid item sx={{minWidth: '5rem'}}>
-  <Box sx={{fontWeight: "bold", background: 'grey'}} textAlign="left">
-    size name should be renderd inside 
-  </Box>
-</Grid> */}

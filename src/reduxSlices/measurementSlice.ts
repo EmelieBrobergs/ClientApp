@@ -44,15 +44,17 @@ export const measurementSlice = createSlice({
     builder
       // FETCH ALL
       .addCase(measurementsFetchAsync.pending, state => {
-        //state.measurements = undefined;
+        console.log("Log: measurementSlice.ts metod measurementFetchAsync. Status PENDING");
         state.loading = true;
         state.error = null;
         state.message = null;
       })
       .addCase(measurementsFetchAsync.fulfilled, (state, action) => {
 
-        //Load state.Measurement by id. If new id, add. If excisting id, update.
-        action.payload.forEach((item) => {
+        //Load state.Measurement by id. If new id, add. If excisting id, update.      //TODO: Skriv test för denna metod !!
+        console.log("Log: measurementSlice.ts metod measurementFetchAsync. Status FULFILLED");
+        //NOTE: ERROR: Uncaught (in promise) TypeError: action.payload.forEach is not a function  (men funka innan jag jobbad djupare?)
+        Array.from(action.payload).forEach((item) => {
           var index = state.measurements.findIndex(x => x.id == item.id);
           if (index != -1) {
             state.measurements.splice(index, 1, item);
@@ -67,7 +69,7 @@ export const measurementSlice = createSlice({
         state.message = null;
       })
       .addCase(measurementsFetchAsync.rejected, (state, action) => {
-        //state.measurements = undefined;
+        console.log("Log: measurementSlice.ts metod measurementFetchAsync. Status REJECTED");
         state.loading = false;
         if (action.payload) {
           state.error = action.payload as string;

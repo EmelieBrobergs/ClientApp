@@ -49,7 +49,7 @@ export const measurementPointSlice = createSlice({
       .addCase(measurementPointsFetchAsync.fulfilled, (state, action) => {
 
         //Load state.MeasurementPoint by id. If new id, add. If excisting id, update.
-        action.payload.forEach((item) => {
+        Array.from(action.payload).forEach((item) => {
           var index = state.measurementPoints.findIndex(x => x.id == item.id);
           if (index != -1) {
             state.measurementPoints.splice(index, 1, item);

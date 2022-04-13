@@ -74,7 +74,7 @@ interface ISizeRange {
 interface ISize {
   id: string;
   name: string;
-  orderIndex: number;
+  orderIndex: string;   // number gjode den undefined vid test print i measurementList, medan name funka..
   sizeRangeId: string;
 }
 

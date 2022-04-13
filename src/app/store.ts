@@ -3,6 +3,8 @@ import userReducer from '../reduxSlices/userSlice';
 import styleReducer from '../reduxSlices/styleSlice';
 import measurementReducer from '../reduxSlices/measurementSlice';
 import measurementPointReducer from '../reduxSlices/measurementPointSlice';
+import sizeRangeReducer from '../reduxSlices/sizeRangeSlice';
+import gradingReducer from '../reduxSlices/gradingSlice';
 
 const store = configureStore({
   //devTools: true, // enable the Redux DevTools Extension. Från https://www.bezkoder.com/react-redux-login-example-toolkit-hooks/
@@ -10,7 +12,9 @@ const store = configureStore({
     user: userReducer,
     style: styleReducer,
     measurement: measurementReducer,
-    measurementPoint: measurementPointReducer
+    measurementPoint: measurementPointReducer,
+    sizeRange: sizeRangeReducer,
+    grading: gradingReducer
   }
 });
 
