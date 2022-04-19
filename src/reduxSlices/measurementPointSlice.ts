@@ -34,7 +34,6 @@ export const measurementPointSlice = createSlice({
     },
     measurementPointSortedByShortName: (state) => {
       // ✅ Sort in Ascending order (low to high)
-      console.log("Sortering av measurementPoint, blir det rätt??");
       if (state.measurementPoints.length > 1) state.measurementPoints.sort((a: IMeasurementPoint, b: IMeasurementPoint) => (a.shortName as any) - (b.shortName as any));
     }
   },

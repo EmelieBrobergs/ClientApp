@@ -11,13 +11,10 @@ const login = (email: string, password: string) => {
     .then((response) => {
       if (response.data.accessToken && response.data.user.id) {
         var token = {
-          accessToken : response.data.accessToken
-        }
-        var user = {
-          userId : response.data.user.id
-        }
+          accessToken: response.data.accessToken
+        };
         localStorage.setItem("token", JSON.stringify(token));
-        localStorage.setItem("user", JSON.stringify(user)); // TODO: Vilken user info vill vi ha ? Brukar man ha ?
+        localStorage.setItem("user", JSON.stringify(response.data.user));  //NOTE: Hela IUser objektet sparas är, iom att store försvinner vid omladdning
       }
       return response.data.user as IUser;
     });
@@ -29,8 +26,7 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  const user = JSON.parse(localStorage.getItem("user") || '{}') as {userId: string};
-  return user.userId;
+  return (<IUser>JSON.parse(localStorage.getItem("user") ?? "{}"));
 };
 
 export default {

@@ -1,36 +1,49 @@
-import { Box, Button, Divider, InputAdornment, TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button, InputAdornment, TextField, Typography, useTheme } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as React from "react";
 import { CSSProperties, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch } from "../../../app/hooks";
 import { styleResetMessages } from "../../../reduxSlices/styleSlice";
 import validationsForm from "./validationSchema";
 
-interface Values extends IEditStyleInfo{}
+interface Values extends IEditStyleInfo { }
 
 interface Props {
-  styleId: string | undefined;
+  // styleId: string | undefined;
+  displayStyle: IStyle;
   onSubmit: (values: Values) => void;
   updateError: string | null;
   updateMessage: string | null;
 }
 
-export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, updateMessage }) => {
+export const InfoForm: React.FC<Props> = ({ displayStyle, onSubmit, updateError, updateMessage }) => {
   const theme = useTheme();
-  const displayStyle = useAppSelector(state => state.style.styles)?.find(s => s.id === styleId);
+  // const { styleId } = useParams<"styleId">();
+  // const displayStyle = useAppSelector(state => state.style.styles)?.find(s => s.id === styleId);
   const dispatch = useAppDispatch();
 
   var initialValues: Values = {
-    style: displayStyle,
-    assignedToUserId: displayStyle ? displayStyle.assignedToUserId : undefined,
-    styleNumber: displayStyle ? displayStyle.styleNumber : "",
-    orderNumber: displayStyle ? displayStyle.orderNumber : "",
-    name: displayStyle ? displayStyle.name : "",
-    description: displayStyle ? displayStyle.description : "",
-    productType: displayStyle ? displayStyle.productType : "",
-    productGroup: displayStyle ? displayStyle.productGroup : "",
-    tags: displayStyle ? displayStyle.tags : undefined,
+    originalStyle: displayStyle,
+    assignedToUserId: displayStyle.assignedToUserId,
+    styleNumber: displayStyle.styleNumber,
+    orderNumber: displayStyle.orderNumber,
+    name: displayStyle.name,
+    description: displayStyle.description,
+    productType: displayStyle.productType,
+    productGroup: displayStyle.productGroup,
+    tags: displayStyle.tags,
   };
+  // var initialValues: Values = {
+  //   originalStyle: displayStyle,
+  //   assignedToUserId: displayStyle.assignedToUserId : undefined,
+  //   styleNumber: displayStyle ? displayStyle.styleNumber : "",
+  //   orderNumber: displayStyle ? displayStyle.orderNumber : "",
+  //   name: displayStyle ? displayStyle.name : "",
+  //   description: displayStyle ? displayStyle.description : "",
+  //   productType: displayStyle ? displayStyle.productType : "",
+  //   productGroup: displayStyle ? displayStyle.productGroup : "",
+  //   tags: displayStyle ? displayStyle.tags : undefined,
+  // };
 
   useEffect(() => {
     dispatch(styleResetMessages());
@@ -66,7 +79,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
                   onBlur={handleBlur}
                   id="input-style-name"
                   InputProps={{
-                    disableUnderline:  errors.name ? false : true,
+                    disableUnderline: errors.name ? false : true,
                     startAdornment: (
                       <InputAdornment position="start" sx={{ ...label }}>
                         Name:
@@ -86,7 +99,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
                   onBlur={handleBlur}
                   id="input-style-orderNumber"
                   InputProps={{
-                    disableUnderline:  errors.orderNumber ? false : true,
+                    disableUnderline: errors.orderNumber ? false : true,
                     startAdornment: (
                       <InputAdornment position="start" sx={{ ...label }}>
                         Order No:
@@ -106,7 +119,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
                   onBlur={handleBlur}
                   id="input-style-styleNumber"
                   InputProps={{
-                    disableUnderline:  errors.styleNumber ? false : true,
+                    disableUnderline: errors.styleNumber ? false : true,
                     startAdornment: (
                       <InputAdornment position="start" sx={{ ...label }}>
                         Style No:
@@ -126,7 +139,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
                   onBlur={handleBlur}
                   id="input-style-productType"
                   InputProps={{
-                    disableUnderline:  errors.productType ? false : true,
+                    disableUnderline: errors.productType ? false : true,
                     startAdornment: (
                       <InputAdornment position="start" sx={{ ...label }}>
                         Product type:
@@ -146,7 +159,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
                   onBlur={handleBlur}
                   id="input-style-productGroup"
                   InputProps={{
-                    disableUnderline:  errors.productGroup ? false : true,
+                    disableUnderline: errors.productGroup ? false : true,
                     startAdornment: (
                       <InputAdornment position="start" sx={{ ...label }}>
                         Product group:
@@ -177,7 +190,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
                   onBlur={handleBlur}
                   id="input-style-description"
                   InputProps={{
-                    disableUnderline:  errors.description ? false : true,
+                    disableUnderline: errors.description ? false : true,
                     startAdornment: (
                       <InputAdornment position="start" sx={{ ...label }}>
                         Description:
@@ -216,7 +229,7 @@ export const InfoForm: React.FC<Props> = ({ styleId, onSubmit, updateError, upda
         )}
       </Formik>
     </div>
-  )
+  );
 };
 
 const root: CSSProperties = {

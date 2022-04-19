@@ -35,7 +35,7 @@ interface IStyle {
   // fittings: []
 }
 interface IEditStyleInfo {
-  style: IStyle | undefined;
+  originalStyle: IStyle | undefined;
   assignedToUserId: string | undefined;
   styleNumber: string;
   orderNumber: string;
@@ -66,7 +66,7 @@ interface IMeasurementPoint {
 
 interface ISizeRange {
   id: string;
-  baseSizeName: string;
+  baseSizeName: string;  //ev. byta ut denna mot id ist..? 
   measurementId: string;
   sizes: ISize[];
 }
@@ -74,7 +74,7 @@ interface ISizeRange {
 interface ISize {
   id: string;
   name: string;
-  orderIndex: string;   // number gjode den undefined vid test print i measurementList, medan name funka..
+  orderIndex: string;   // NOTE: går att logga ut värdet, men inte skriva ut det i UI ???
   sizeRangeId: string;
 }
 
@@ -83,5 +83,17 @@ interface IGrading {
   sizeId: string;
   measurementPointId: string;
   value: number;
+
+  //********* only in React/UI */
+  //calculatedValue: number | undefined;
+}
+
+interface IGradingMeasurementPoint {
+  gradingId: string;
+  sizeName: stirng;
+  gradingValue: number;
+  calculatedSizeValue: number;
+  sizeOrderIndex: string;
+  baseSize: boolean;
 }
 

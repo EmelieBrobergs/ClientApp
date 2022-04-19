@@ -17,9 +17,9 @@ const LayoutMeasurements = () => {
         console.log("Log: File layoutMeasurement.tsx useEffect körs");
     }, []);
 
-    // useEffect(() => {
-    //     dispatch(measurementSortedByCreatedDate());
-    // }, [measurementState.loading]);
+    useEffect(() => {
+        dispatch(measurementSortedByCreatedDate());
+    }, [measurementState.loading]);
 
     return (
         <>

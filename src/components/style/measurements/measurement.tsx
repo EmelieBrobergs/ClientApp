@@ -31,7 +31,7 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
             dispatch(measurementPointSortedByShortName());
             setDoEffect(false);
         }
-    }, [measurementPointState.loading]);  // osäker på denna
+    }, [measurementPointState.loading]);  // osäker på denna  //TODO: Tror denna är ik measurementPointRow.... tänk om många...!!
 
     const onChangeExpanded = () => {
         console.log(`Log: File measurement.tsx, när expaned, hämtar points länkade till measurementId ${measurementId}`);
@@ -58,14 +58,15 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography>Mmnt: {name}</Typography>
+                <Typography>Measurement: {name}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <div>Created: {createdDate}</div>
+                <div className={'w-full flex justify-end'}>
+                    {createdDate && <Typography variant='caption'>Created: {createdDate}</Typography>}
+                </div>
                 {measurementPoints.length > 0 && (sizeRange != undefined) && renderDetails &&
                     <>
-                        {/* TODO: Hantera dessa som "dumb components" och skicka / ta emot data från dom ist???? */}
-                        <HeadlineRow sizeRangeId={sizeRange.id} />
+                        <HeadlineRow key={"sr" + sizeRange.id} sizeRangeId={sizeRange.id} />
                         <Divider />
                         {measurementPoints.map((point: IMeasurementPoint) => (
                             <>

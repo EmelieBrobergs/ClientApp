@@ -1,13 +1,14 @@
 
 import { AppBar, Box, CssBaseline, Toolbar, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import AppBarDropDownMenu from "../components/appBar/appBarDropDownMenu";
 import IconeButtonStack, { iconButtonStackWidth } from "../components/style/home/iconeButtonStack";
 import { Loggoute } from "../components/appBar/loggoute";
 import { User } from "../components/appBar/user";
 import EasyInfoBox, { easyInfoBoxWidth } from "../components/style/home/easyInfoBox";
+import { styleFetchAsync } from '../reduxSlices/styleSlice';
 
 export const appBarHeight = 48;
 
@@ -15,6 +16,13 @@ const StyleHomePage = () => {
     const theme = useTheme();
     const { styleId } = useParams<"styleId">();
     const style = useAppSelector(state => state.style.styles?.find(s => s.id == styleId));
+
+    // TODO: Se om denna laddar data vid ny flik ? eller F5   SVAR: Ger data till navbar + easyInfoBox !!
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        console.log("effect körs");
+        if (styleId) dispatch(styleFetchAsync(styleId));
+    }, []);
 
     return (
         <Box sx={{ display: 'flex', width: '100vw' }}>
@@ -60,7 +68,7 @@ const StyleHomePage = () => {
                     p: '16px',
                     pt: `calc(${appBarHeight}px + 16px)`,
                     minHeight: '100vh',
-                    width: {xs: `calc(100% - ${iconButtonStackWidth}px)`, md: `calc(100% - (${iconButtonStackWidth}px + ${easyInfoBoxWidth}px))`},
+                    width: { xs: `calc(100% - ${iconButtonStackWidth}px)`, md: `calc(100% - (${iconButtonStackWidth}px + ${easyInfoBoxWidth}px))` },
                     background: theme.palette.secondary.main,
                 }}
             >
@@ -70,7 +78,7 @@ const StyleHomePage = () => {
             <Box
                 sx={{
                     pt: `calc(${appBarHeight}px + 16px)`,
-                    minHeight: '100vh', 
+                    minHeight: '100vh',
                     background: theme.palette.secondary.dark,
                     display: { xs: 'none', md: 'block' }
                 }}

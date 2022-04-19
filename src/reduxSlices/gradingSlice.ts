@@ -14,8 +14,6 @@ const initialState: gradingState = {
   error: null,
   message: null
 };
-
-// TODO: DB struktur och underliggande data??
 export const gradingsFetchAsync = createAsyncThunk(
   'style/fetchgradingsbymeasurementpointid',
   async (measurementPointId: string) => {

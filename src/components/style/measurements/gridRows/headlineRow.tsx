@@ -1,4 +1,5 @@
-import { useTheme, Typography } from "@mui/material";
+import { useTheme, Typography, Tooltip } from "@mui/material";
+import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../../../app/hooks';
 
 interface Props {
@@ -6,24 +7,41 @@ interface Props {
 }
 function HeadlineRow({ sizeRangeId }: Props) {
   const theme = useTheme();
+  const sizeRangeState = useAppSelector(state => state.sizeRange);
   const sizeRange = useAppSelector(state => state.sizeRange.sizeRanges.find(sr => sr.id == sizeRangeId));
+
+  // const [sizes, setSizes] = useState<ISize[]>([]);
+
+  // useEffect(() => {
+  //   if (sizeRange) {
+  //     setSizes([...sizeRange.sizes]);
+  //     sizes.sort((a, b) => (b.orderIndex as any) - (a.orderIndex as any));
+  //     console.log("Log: Sorterar om sizes i headline row");
+  //   }
+  // }, [sizeRangeState.loading]);
+
+  // TODO: Lägg till dispatch med anop till att sortera sizeRange statet, ist för useEffect soreting av lockal state. ?.
 
   return (
     <>
       {(sizeRange != undefined) &&
-        // <div className={`grid grid-cols-${(3 + sizeRange.sizes.length)}`}>  // TODO: Improv Tailwind set up to be able to render caculated grid cols
-        <div className={`grid grid-cols-12`}>
-          <Typography variant='body1' sx={{ fontWeight: 'bold' }}>sn</Typography>
-          <Typography variant='body1' sx={{ fontWeight: 'bold' }}>Description</Typography>
-          <Typography variant='body1' sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>Tolerance</Typography>
-          {sizeRange.sizes.map(sr => (
-            sr.name == sizeRange.baseSizeName ?
-              <Typography key={sr.id} variant='body1' sx={{
-                fontWeight: 'bold', color: theme.palette.info.main,
-                backgroundColor: theme.palette.secondary.main, display: 'flex', justifyContent: 'center'
-              }}>{sr.name}</Typography>
-              :
-              <Typography key={sr.id} variant='body1' sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>{sr.name}</Typography>
+        <div className={`grid grid-cols-${(3 + sizeRange.sizes.length)}`}>
+          <Typography ></Typography>
+          <Typography variant='body1' sx={{ fontWeight: 'bold', display: 'flex', alignContent: 'end' }}>Measurement Point</Typography>
+          <Typography variant='body1' sx={{ display: 'flex', alignContent: 'end', justifyContent: 'center' }}>TOL DIFF</Typography>
+          {sizeRange.sizes.map(size => (
+            <Tooltip title={`OrderIndex: ${size.orderIndex}`}>
+              <Typography
+                key={size.id}
+                variant='body1'
+                sx={{
+                  fontWeight: (size.name == sizeRange.baseSizeName) ? 'bold' : 'normal',
+                  display: 'flex', alignContent: 'end', justifyContent: 'center'
+                }}
+              >
+                {size.name}
+              </Typography>
+            </Tooltip>
           ))}
         </div>
       }

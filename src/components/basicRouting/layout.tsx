@@ -12,8 +12,20 @@ import LayoutHandleSample from "../style/layoutHandleSample";
 import LayoutFitting from "../style/layoutFitting";
 import LayoutMeasurements from "../style/measurements/layoutMeasurements";
 import LayoutInfo from "../style/info/layoutInfo";
+import { useAppDispatch } from '../../app/hooks';
+import { useEffect } from 'react';
+import { setCurrentUserFromLoclstorageAsync } from '../../reduxSlices/userSlice';
 
 export default function Layout() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        // NOTE: hinner denna ladda???
+        dispatch(setCurrentUserFromLoclstorageAsync());
+    }, []);
+
+    //TODO: Vill sätta cusrentUser baserat på lokalstorage
+
     return (
         <Routes>
             <Route path="/login" element={<LoginPage />} />
@@ -29,8 +41,8 @@ export default function Layout() {
                 <Route path="*" element={<ProtectedNotFoundPage />} />
             </Route>
             <Route path="/style" element={<RequireAuth>
-                        <StyleHomePage/>
-                    </RequireAuth>}>
+                <StyleHomePage />
+            </RequireAuth>}>
                 <Route path=":styleId/info" element={<LayoutInfo />} />
                 <Route path=":styleId/mmntlist" element={<LayoutMeasurements />} />
                 <Route path=":styleId/fitting" element={<LayoutFitting />} />
@@ -38,5 +50,5 @@ export default function Layout() {
                 <Route path="*" element={<ProtectedNotFoundPage />} />
             </Route>
         </Routes>
-    )
+    );
 }

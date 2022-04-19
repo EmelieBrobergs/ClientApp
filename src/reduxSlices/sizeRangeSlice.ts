@@ -17,7 +17,7 @@ const initialState: SizeRangeState = {
 };
 
 export const sizeRangeFetchAsync = createAsyncThunk(
-  'style/fetchAllByStyleId',
+  'sizerange/...',
   async (measurementId: string) => {
     var result = await sizeRangeService.fetchSizeRange(measurementId);
     return result;
@@ -31,11 +31,16 @@ export const sizeRangeSlice = createSlice({
     sizeRangeMessages: (state) => {
       state.error = null;
       state.message = null;
-    }
+    },
+    // sizeRangeSortedByOrderIndex: (state) => {
+    //   // ✅ Sort in Ascending order (low to high)
+    //   console.log("Sortering av sizeRange, blir det rätt??");
+    //   if (state.sizeRanges. > 1) state.measurementPoints.sort((a: IMeasurementPoint, b: IMeasurementPoint) => (a.shortName as any) - (b.shortName as any));
+    // }
   },
   extraReducers: (builder) => {
     builder
-      // FETCH ALL
+      // FETCH ONE
       .addCase(sizeRangeFetchAsync.pending, state => {
         state.loading = true;
         state.error = null;
