@@ -8,6 +8,16 @@ const fetchSizeRange = (measurementId: string) => {
     });
 };
 
+const createSizeRange = (sizerange: ICreateSizeRange) => {
+  return instance.post(`/sizerange`,
+    { ...sizerange }
+  )
+    .then((response) => {
+      return response.data as ISizeRange;
+    });
+};
+
 export default {
-  fetchSizeRange
+  fetchSizeRange,
+  createSizeRange
 };

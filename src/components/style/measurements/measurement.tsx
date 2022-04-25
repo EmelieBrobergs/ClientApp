@@ -27,14 +27,14 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
 
     useEffect(() => {
         if (doEffect) {
-            console.log("Log: File measurement.tsx useEffect körs. Dispatch sort measurementPoints.");
+            console.log("effect,  Dispatch sort measurementPoints.");
             dispatch(measurementPointSortedByShortName());
             setDoEffect(false);
         }
     }, [measurementPointState.loading]);  // osäker på denna  //TODO: Tror denna är ik measurementPointRow.... tänk om många...!!
 
     const onChangeExpanded = () => {
-        console.log(`Log: File measurement.tsx, när expaned, hämtar points länkade till measurementId ${measurementId}`);
+        console.log(`när flik öppnas, despatch med  measurementId ${measurementId}`);
         dispatch(measurementPointsFetchAsync(measurementId));
         dispatch(sizeRangeFetchAsync(measurementId));
         setDoEffect(true);
@@ -43,7 +43,7 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
     return (
         <Accordion
             sx={{ mb: 1 }}
-            onChange={(e, expanded) => {
+            onChange={(_e, expanded) => {
                 if (expanded) {
                     onChangeExpanded();
                     setRenderDetails(true);
@@ -66,7 +66,7 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
                 </div>
                 {measurementPoints.length > 0 && (sizeRange != undefined) && renderDetails &&
                     <>
-                        <HeadlineRow key={"sr" + sizeRange.id} sizeRangeId={sizeRange.id} />
+                        <HeadlineRow key={sizeRange.id} sizeRangeId={sizeRange.id} />
                         <Divider />
                         {measurementPoints.map((point: IMeasurementPoint) => (
                             <>

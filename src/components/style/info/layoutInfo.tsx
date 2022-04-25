@@ -12,13 +12,14 @@ const LayoutInfo = () => {
     const styleState = useAppSelector(state => state.style);
     const [loadStyle, setLoadStyle] = useState(styleState.styles?.find(s => s.id == styleId));
 
-    useEffect(() => {
-        if (styleId) {
-            console.log("effect körs, dispattch");
-            dispatch(styleFetchAsync(styleId));
-        }
-    }, [(styleId !== undefined)]);
+    // useEffect(() => {
+    //     if (styleId) {
+    //         console.log("effect körs, dispattch");
+    //         dispatch(styleFetchAsync(styleId));
+    //     }
+    // }, [(styleId !== undefined)]);
 
+    // NOTE: Parent make a dispatch,allways. There for I listen on the loding state only.. But relod to much..
     useEffect(() => {
         console.log("style load");
         setLoadStyle(styleState.styles?.find(s => s.id == styleId));

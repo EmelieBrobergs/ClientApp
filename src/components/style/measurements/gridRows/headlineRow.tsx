@@ -27,8 +27,8 @@ function HeadlineRow({ sizeRangeId }: Props) {
       {(sizeRange != undefined) &&
         <div className={`grid grid-cols-${(3 + sizeRange.sizes.length)}`}>
           <Typography ></Typography>
-          <Typography variant='body1' sx={{ fontWeight: 'bold', display: 'flex', alignContent: 'end' }}>Measurement Point</Typography>
-          <Typography variant='body1' sx={{ display: 'flex', alignContent: 'end', justifyContent: 'center' }}>TOL DIFF</Typography>
+          <Typography variant='body1' sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'flex-end' }}>Measurement Point</Typography>
+          <Typography variant='body1' sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>TOL DIFF</Typography>
           {sizeRange.sizes.map(size => (
             <Tooltip title={`OrderIndex: ${size.orderIndex}`}>
               <Typography
@@ -36,7 +36,7 @@ function HeadlineRow({ sizeRangeId }: Props) {
                 variant='body1'
                 sx={{
                   fontWeight: (size.name == sizeRange.baseSizeName) ? 'bold' : 'normal',
-                  display: 'flex', alignContent: 'end', justifyContent: 'center'
+                  display: 'flex', alignItems: 'flex-end', justifyContent: 'center'
                 }}
               >
                 {size.name}
@@ -46,7 +46,7 @@ function HeadlineRow({ sizeRangeId }: Props) {
         </div>
       }
       {!sizeRange &&
-        <div>No size range loaded...no measurement point will de renderd?? hm..or should they?</div> // TODO: improv alt. render
+        <div>Size range loading..</div> // TODO: improv alt. render
       }
     </>
   );

@@ -1,5 +1,7 @@
 // File intended to be used for creation of types for React Redux
 
+//As this file grows, it should be sorted in a nice way for better code structure..!
+
 interface IUserCredentials {
   email: string;
   password: string;
@@ -97,3 +99,35 @@ interface IGradingMeasurementPoint {
   baseSize: boolean;
 }
 
+interface ICreateMeasurement {
+  id: number;
+  styleId: string;
+  name: string;
+  sizeRange: ICreateSizeRange;
+  // unitOfMeasure: 0 | 1;
+}
+
+// TODO: Make Enum work in UI !
+// enum EnumUnitOfMeasure {
+//   cm = 0,
+//   inch = 1
+// }
+interface ICreateSizeRange {
+  id: number;
+  baseSizeName: string | null;
+  sizes: ICreateSizes[] | [];
+}
+interface ICreateSizes {
+  id: number;
+  name: string;
+  orderIndex: string;
+}
+
+interface ICreateMeasurementResponse {
+  id: string;
+  parentMeasurementId?: string;
+  name: string;
+  styleId: string;
+  createdDate: Date;
+  sizeRange: ISizeRange | undefined;
+}
