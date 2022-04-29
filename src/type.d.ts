@@ -133,6 +133,11 @@ interface ICreateMeasurementResponse {
 }
 
 interface ICreateMeasurementPoint {
-  measurementPoint: IMeasurementPoint;
-  grading: IGrading[];
+  // measurementPoint: IMeasurementPoint;
+  id: string;
+  shortName: string;
+  description: string;
+  tolerance: number;
+  measurementId: string;
+  gradingField: IGradingMeasurementPoint[];
 }

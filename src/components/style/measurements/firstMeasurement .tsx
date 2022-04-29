@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { measurementPointsFetchAsync, measurementPointSortedByShortName } from '../../../reduxSlices/measurementPointSlice';
 import { sizeRangeFetchAsync } from '../../../reduxSlices/sizeRangeSlice';
 import HeadlineRow from "./gridRows/headlineRow";
-import InputMeasurementPointRow from './gridRows/inputMeasurementPointRow';
+import InputMeasurementPointRow from './gridRows/measurementPointRowForm';
 import MeasurementPointRow from "./gridRows/measurementPointRow";
 
 interface Props {
