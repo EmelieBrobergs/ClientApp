@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { measurementsFetchAsync, measurementSortedByCreatedDate } from '../../../reduxSlices/measurementSlice';
 import InputTagsArray from '../inputTagsArray';
 import LayoutCreateMeasurement from './createMeasurement/layoutCreateMeasurement';
+import FirstMeasurement from './firstMeasurement ';
 import Measurement from './measurement';
 
 const LayoutMeasurements = () => {
@@ -30,28 +31,14 @@ const LayoutMeasurements = () => {
             ))}
             {measurements.length == 1 && measurements.map((m: IMeasurement) => (
                 <>
-                    <div>ONE measurement found for Style id: {styleId}</div>
-                    <div>Measurement id: {m.id}</div>
-                    <Measurement key={m.id} name={m.name} measurementId={m.id} createdDate={m.createdDate} />
-                    <br />
-                    <div>Switch view, render a "editerbar" measurement list</div>
-                    <div>När en rad är korrekt ifylld och användaren klickar ur den görs ett API anrop och sparar MeasurementPoint</div>
-                    <div>Är raden inte korrekt ifylld när användare lämnar den, blir den röd (inget API anrop)</div>
-                    <div>Ändras en redan sparad rad, görs ett api update anrop när användare lämnar raden (om korrekt ifylld)</div>
-                    <div>Finns alltid en tom rad längst ned.. hur när en ny ploppar upp får jag testa vad som är snyggt.</div>
-                    <br />
-                    <div>Om endast en måttlista finns, och ingen provhantering ska det gå att eitera den i denna vy.</div>
-                    <div>Nya måttlistor skapas sedan i Handle sample vyn, och visas endast i denna vy (med ev tydlighet i förändrade mått)</div>
+                    {/* TODO: Presentera en editerbar måttlista */}
+                    <FirstMeasurement key={m.id} name={m.name} measurementId={m.id} createdDate={m.createdDate} />
                 </>
             ))}
             {measurements.length == 0 &&
                 <>
                     {/* NOTE: Vill inte att denna vy ska renderas ut medans man väntar på svar fån db ..! Endast om inga measurement finns, IMPORTANT!! */}
-                    <div>No measurement found for Style id: {styleId}</div>
-                    <br />
-
                     <LayoutCreateMeasurement />
-                    <InputTagsArray />
                 </>
             }
         </>

@@ -131,3 +131,8 @@ interface ICreateMeasurementResponse {
   createdDate: Date;
   sizeRange: ISizeRange | undefined;
 }
+
+interface ICreateMeasurementPoint {
+  measurementPoint: IMeasurementPoint;
+  grading: IGrading[];
+}

@@ -148,10 +148,6 @@ export const CreateMeasurementForm: React.FC<Props> = ({ onSubmit, styleId, upda
                   )}
                 />
               </Box>
-              <br />
-              {sizes.map((item, index) => <p>{item.name} : {item.orderIndex} : {index}</p>)}
-              <div>{`value: ${sizes.length !== 0 ? `'${sizes.length}'` : 'null'}`}</div>
-              <br />
               <div style={{ alignSelf: "flex-end" }}>
                 <Button
                   variant="contained"

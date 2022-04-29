@@ -5,15 +5,16 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { measurementPointsFetchAsync, measurementPointSortedByShortName } from '../../../reduxSlices/measurementPointSlice';
 import { sizeRangeFetchAsync } from '../../../reduxSlices/sizeRangeSlice';
 import HeadlineRow from "./gridRows/headlineRow";
+import InputMeasurementPointRow from './gridRows/inputMeasurementPointRow';
 import MeasurementPointRow from "./gridRows/measurementPointRow";
 
 interface Props {
     name: string,
     measurementId: string,
-    createdDate?: Date;
+    createdDate: Date;
 }
 
-const Measurement = ({ name, measurementId, createdDate }: Props) => {
+const FirstMeasurement = ({ name, measurementId, createdDate }: Props) => {
     const theme = useTheme();
     //const { styleId } = useParams<"styleId">();
     const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
     }, [measurementPointState.loading]);  // TODO: Håll koll så den inte körs x10000 framöver
 
     const onChangeExpanded = () => {
-        dispatch(measurementPointsFetchAsync(measurementId));
+        dispatch(measurementPointsFetchAsync(measurementId));  // TODO: Ge annat svar än 400 om tom !
         dispatch(sizeRangeFetchAsync(measurementId));
         setDoEffect(true);
     };
@@ -56,13 +57,14 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography>Measurement: {name}</Typography>
+                <Typography>Create First Measurement</Typography>
             </AccordionSummary>
             <AccordionDetails>
+                <Typography>Measurement name: {name}</Typography>
                 <div className={'w-full flex justify-end'}>
                     {createdDate && <Typography variant='caption'>Created: {createdDate}</Typography>}
                 </div>
-                {measurementPoints.length > 0 && (sizeRange != undefined) && renderDetails &&
+                {(sizeRange != undefined) && renderDetails &&
                     <>
                         <HeadlineRow key={sizeRange.id} sizeRangeId={sizeRange.id} />
                         <Divider />
@@ -72,16 +74,13 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
                                 <Divider />
                             </>
                         ))}
-                    </>
-                }
-                {measurementPoints.length == 0 &&
-                    <>
-                        <Typography variant="body1">No measurement points</Typography>
+                        <InputMeasurementPointRow sizeRangeId={sizeRange.id} />
+                        <div>Ny tom rad !</div>
                     </>
                 }
                 {!sizeRange &&
                     <>
-                        <Typography variant="body1">No size range</Typography>
+                        <Typography variant="body1">No size range error</Typography>
                     </>
                 }
             </AccordionDetails>
@@ -89,7 +88,7 @@ const Measurement = ({ name, measurementId, createdDate }: Props) => {
     );
 };
 
-export default Measurement;
+export default FirstMeasurement;
 
 const shortName: CSSProperties = {
     justifyContent: "center",

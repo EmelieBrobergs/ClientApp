@@ -12,13 +12,6 @@ const LayoutCreateMeasurement = () => {
     const styleState = useAppSelector(state => state.style);
     const [loadStyle, setLoadStyle] = useState(styleState.styles?.find(s => s.id == styleId));
 
-    // var formSent = false;
-    // var createSizeRange: ICreateSizeRange = {
-    //     measurementId: '',
-    //     baseSizeName: null,
-    //     sizes: []
-    // };
-
     useEffect(() => {
         console.log("style load");
         setLoadStyle(styleState.styles?.find(s => s.id == styleId));
@@ -26,8 +19,6 @@ const LayoutCreateMeasurement = () => {
 
     const onFormSubmit = (data: ICreateMeasurement) => {
         dispatch(measurementCreateWithSizeRangeAsync(data));
-        // TODO: Skapa en POST metod i ReduxSlice measurement" med input ICreateMeasurementForm + styleId ?
-        console.log(`Formulär mottaget, styleId: ${data.styleId}, name: ${data.name}, basesize: ${data.sizeRange.baseSizeName}, sizes.lenght: ${data.sizeRange.sizes.length}`);
     };
 
     var errorText = useAppSelector((state) => state.measurement.error);
